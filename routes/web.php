@@ -12,9 +12,24 @@
 */
 
 Route::get('/', function () {
-    return redirect('/home');
+    return redirect('/select-project');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', function () {
+    return redirect('/select-project');
+});
+Route::get('/home/{data}', 'HomeController@index')->name('home');
+Route::get('/select-project', 'SelectProject@index')->name('select-project');
+Route::resource('enterprise', 'EnterPriseController');
+
+/* *สามารถกำหนดใช้เฉพาะบาง Action ใน Routes ได้ เช่น
+    Route::resource('blogs', 'BlogController', ['only' => [
+        'index', 'show'
+    ]]);
+
+    Route::resource('blogs', 'BlogController', ['except' => [
+        'create', 'store', 'update', 'destroy'
+    ]]);
+*/
