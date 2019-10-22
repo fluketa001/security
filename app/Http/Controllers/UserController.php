@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use App\EnterPrise;
+use DB;
 
-class EnterPriseController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,34 +16,26 @@ class EnterPriseController extends Controller
      */
     public function index()
     {
-        // get all the blogs
-        $enterprises = EnterPrise::all()->sortByDesc('created_at');
+        // get all the User
+        $users = User::all()->sortBy('id');
+        $enterprises = EnterPrise::all()->sortBy('id');
+        $detail_user = DB::table('detail_users')
+        ->join('enterprises', 'detail_users.enterprise_id', '=', 'enterprises.id')
+        ->select('detail_users.*', 'enterprises.name AS enterprises_name', 'enterprises.id AS enterprises_id')
+        ->get();
+        /*$users = DB::table('users')
+            ->join('detail_user', 'users.id', '=', 'detail_user.id')
+            ->join('enterprises', 'enterprises.id', '=', 'detail_user.enterprise_id')
+            ->select('users.*', 'enterprises.name AS enterprises_name', 'enterprises.id AS enterprises_id')
+            ->get();*/
+        //$users = User::all()->sortByDesc('created_at');
 
         // load the view and pass the user
-        return View('enterprises.index')
-            ->with('enterprises', $enterprises);
-
-        //$enterprises = App\EnterPrise::all();
-
-        // get all the blogs
-        //$blogs = Blog::all()->sortByDesc('created_at');
-
-        /*foreach ($enterprises as $enterprise) {
-            echo $enterprise->name;
-        }*/
+        return View('users.index')
+            ->with('users', $users)
+            ->with('enterprises', $enterprises)
+            ->with('detail_user', $detail_user);
         //
-            /*
-                $flights = App\Flight::where('active', 1)
-                    ->orderBy('name', 'desc')
-                    ->take(10)
-                    ->get();
-
-            *** การดึงข้อมูลทั้งหมดของตารางที่ระบุ แล้วคุณยังอาจเรียกดูเรคคอร์ดเดียว โดยใช้ find หรือ  first ก็ได้
-                $flight = App\Flight::find(1);
-
-            // Retrieve the first model matching the query constraints...
-                $flight = App\Flight::where('active', 1)->first();
-            */
     }
 
     /**
@@ -73,8 +67,6 @@ class EnterPriseController extends Controller
      */
     public function show($id)
     {
-        //$enterprises = DB::query('select * from enterprises');
-        //return View('select-project')->with('enterprises', $enterprises);
         //
     }
 

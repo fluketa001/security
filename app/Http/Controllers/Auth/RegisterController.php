@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+// DON'T FORGET TO ADD THESE TWO!
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -28,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/user';
 
     /**
      * Create a new controller instance.
@@ -37,7 +41,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
     /**
@@ -50,9 +54,12 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'telephone' => ['required'],
+            'address' => ['required'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:4', 'confirmed'],
             'status' => ['required', 'string'],
+            'gender' => ['required', 'string'],
         ]);
     }
 
@@ -64,11 +71,36 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+            if($data['gender'] == "male"){
+                $picture = "male-avatar.png";
+            }else{
+                $picture = "female-avatar.png";
+            }
         return User::create([
             'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'telephone' => $data['telephone'],
+            'address' => $data['address'],
+            'username' => $data['username'],
+            'password' => Hash::make($data['password']),//'password' => Hash::make($data['password'])
             'status' => $data['status'],
+            'gender' => $data['gender'],
+            'picture' => $picture,
         ]);
+    }
+     /**
+      * ฟังก์ชัน ปิดใช้งานการลงชื่อเข้าใช้อัตโนมัติหลังจากการลงทะเบียน
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
     }
 }

@@ -23,6 +23,12 @@ Route::get('/home', function () {
 Route::get('/home/{data}', 'HomeController@index')->name('home');
 Route::get('/select-project', 'SelectProject@index')->name('select-project');
 Route::resource('enterprise', 'EnterPriseController');
+Route::resource('user', 'UserController');
+
+View::composer(['*'], function ($view) {
+    $user = Auth::user();
+    $view->with('user',$user);
+});
 
 /* *สามารถกำหนดใช้เฉพาะบาง Action ใน Routes ได้ เช่น
     Route::resource('blogs', 'BlogController', ['only' => [

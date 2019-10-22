@@ -1,78 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <!-- data Table -->
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+@extends('layouts.app')
 
-    <title> {{ config('app.name', 'Laravel') }}</title>
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-	</head>
-	<body>
-		 <div class="container">
-			<div class="row page-header">
-				<div class="col-xs-12 col-md-6 col-lg-6">
-					 <h1>Blogs</h1>
-				 </div>
-				 <div class="col-xs-12 col-md-6 col-lg-6">
-						 <a href="{{ URL('/blogs/create') }}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Create Blog</a>
-				 </div>
-			</div>
-			 <!-- /.row -->
+@section('content')
+<!-- page content -->
+<div class="right_col" role="main">
 
-			 <!-- will be used to show any messages -->
-			@if (Session::has('message'))
-				<div class="alert alert-success">{{ Session::get('message') }}</div>
-			@endif
-			<div class="table-responsive">
-			<table class="table table-striped table-bordered">
-				<thead>
-					<tr>
-						<td>ID</td>
-						<td>Name</td>
-						<td>Address</td>
-						<td>Telephone</td>
-						<td>Created_at</td>
-					</tr>
-				</thead>
-				<tbody>
-				@foreach($enterprises as $key => $value)
-					<tr>
-						<td>{{ $value->id }}</td>
-						<td>{{ $value->name }}</td>
-						<td>{{ $value->address }}</td>
-						<td>{{ $value->telephone }}</td>
-						<td>{{ $value->created_at }}</td>
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+ <div class="dashboard_graph">
 
-						<!-- we will also add show, edit, and delete buttons -->
-						<td>
+    <div class="row x_title">
+        <div class="col-md-6">
+            <h3>ข้อมูลโครงการ <small>(Project info){{--Graph title sub-title--}}</small></h3>
+        </div>
+        <div class="col-md-6">
+            <div class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                @include('layouts.time')
+            </div>
+        </div>
+    </div>
 
-							<!-- delete the nerd (uses the destroy method DESTROY /blogs/{id} -->
-							<!-- we will add this later since its a little more complicated than the other two buttons -->
-							<form class="form-horizontal" method="POST" action="{{ URL('blogs/'.$value->id) }}">
-							{{ csrf_field() }}
-							{{ method_field('DELETE') }}
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ลำดับ</th>
+                        <th>ชื่อโครงการ</th>
+                        <th>ที่อยู่</th>
+                        <th>โทรศัพท์</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+			@foreach($enterprises as $key => $value)
+                <tr>
+                    <td align="center">{{ $loop->index+1 }}</td>
+                    <td>{{ $value->name }}</td>
+                    <td>{{ $value->address }}</td>
+                    <td>{{ $value->telephone }}</td>
 
-							<!-- show the nerd (uses the show method found at GET /users/{id} -->
-							<a class="btn btn-xs btn-success" href="{{ URL::to('blogs/' . $value->id) }}">Show</a>
-
-							<!-- edit this nerd (uses the edit method found at GET /users/{id}/edit -->
-							<a class="btn btn-xs btn-info" href="{{ URL::to('blogs/' . $value->id . '/edit') }}">Edit</a>
-
-							<button type="submit" class="btn btn-xs btn-danger">Delete</button>
-							</form>
+                    <!-- we will also add show, edit, and delete buttons -->
+                    <td>
+                        <a class="btn btn-info" href="{{ URL::to('blogs/' . $value->id . '/edit') }}">Edit</a>
+                        <button class="btn btn-danger" onclick="Delete()">Delete</button>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
 
 
-						</td>
-					</tr>
-				@endforeach
-				</tbody>
-			</table>
-			</div>
-	</div>
-</body>
-</html>
+
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+    function Delete(){
+        swal({   title: "คุณต้องการจะลบโครงการนี้!",
+        text: "คุณแน่ใจที่จะลบ?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        cancelButtonText: "ไม่ลบ!",
+        confirmButtonText: "ยืนยันลบ!",
+        closeOnConfirm: false,
+        closeOnCancel: false },
+        function(isConfirm){
+            if (isConfirm)
+            {
+            //swal("Account Removed!", "Your account is removed permanently!", "success");
+            document.location = "/enterprise";
+            }
+            else {
+                swal("เย้", "โครงการนี้ไม่ถูกลบ!", "error");
+                } });
+    }
+</script>
+<!-- /page content -->
+@endsection
+

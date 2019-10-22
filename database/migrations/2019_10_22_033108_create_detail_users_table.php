@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateDetailUserTable extends Migration
+class CreateDetailUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDetailUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('detail-users', function (Blueprint $table) {
+        Schema::create('detail_users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('enterprise_id');
             $table->integer('user_id');
@@ -28,6 +28,6 @@ class CreateDetailUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail-users');
+        Schema::dropIfExists('detail_users');
     }
 }

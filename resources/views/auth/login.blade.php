@@ -1,5 +1,20 @@
 @extends('layouts.app')
 
+<?php
+    $_month_name = array("01"=>"มกราคม",  "02"=>"กุมภาพันธ์",  "03"=>"มีนาคม",
+        "04"=>"เมษายน",  "05"=>"พฤษภาคม",  "06"=>"มิถุนายน",
+        "07"=>"กรกฎาคม",  "08"=>"สิงหาคม",  "09"=>"กันยายน",
+        "10"=>"ตุลาคม", "11"=>"พฤศจิกายน",  "12"=>"ธันวาคม");
+
+    $vardate=date('Y-m-d');
+    $yy=date('Y');
+    $mm =date('m');$dd=date('d');
+    if ($dd<10){
+        $dd=substr($dd,1,2);
+    }
+    $date=$dd ." ".$_month_name[$mm]."  ".$yy+= 543;
+?>
+
 <script language="JavaScript" type="text/javascript">
     function sivamtime() {
     now=new Date();
@@ -42,9 +57,9 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
 
-                                @error('email')
+                                @error('username')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -94,6 +109,7 @@
                     </form>
                 </div>
                 <div align="center" class="form-group mb-4">
+                    <?php echo $date; ?><br>
                     <!-- แก้ไขตำแหน่งของนาฬิกาที่ left และ top ครับ -->
                     เวลา <span id="theTime" style="font-family: Tahoma; color:#FF0000; font-size:20px;"></span> นาที
                 </div>

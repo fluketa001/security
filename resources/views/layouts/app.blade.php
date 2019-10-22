@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -34,6 +34,15 @@
     <link href="{{ asset('vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
+
+    <style>
+        .table th {text-align: center;vertical-align: middle;}
+
+    </style>
+
+    <script src="{{ asset('js/sweetalert-dev.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}">
+
 
 </head>
 <body class="nav-md">
@@ -100,5 +109,12 @@
     <!-- Custom Theme Scripts -->
     <script src="{{ asset('build/js/custom.min.js') }}"></script>
 
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "scrollX": true
+            });
+        } );
+    </script>
 </body>
 </html>

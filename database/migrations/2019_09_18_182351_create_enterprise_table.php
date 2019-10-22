@@ -18,6 +18,7 @@ class CreateEnterpriseTable extends Migration
             $table->string('name');
             $table->text('address');
             $table->string('telephone',50);
+            $table->string('picture');
             $table->timestamps();
         });
     }
