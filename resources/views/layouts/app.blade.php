@@ -42,6 +42,9 @@
 
     <script src="{{ asset('js/sweetalert-dev.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}">
+    <!-- data Table -->
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 
 
 </head>

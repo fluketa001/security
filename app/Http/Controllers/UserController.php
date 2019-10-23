@@ -78,6 +78,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $users = User::all()->where('id',$id);
+        return View('users.edit_user')->with('users',$users);
         //
     }
 

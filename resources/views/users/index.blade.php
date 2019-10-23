@@ -4,77 +4,81 @@
         exit(0);
     }
 @endphp
-<style>
-        /*the container must be positioned relative:*/
-        .custom-select {
-          position: relative;
-          font-family: Arial;
-        }
 
-        .custom-select select {
-          display: none; /*hide original SELECT element:*/
-        }
-
-        .select-selected {
-          background-color: DodgerBlue;
-        }
-
-        /*style the arrow inside the select element:*/
-        .select-selected:after {
-          position: absolute;
-          content: "";
-          top: 14px;
-          right: 10px;
-          width: 0;
-          height: 0;
-          border: 6px solid transparent;
-          border-color: #fff transparent transparent transparent;
-        }
-
-        /*point the arrow upwards when the select box is open (active):*/
-        .select-selected.select-arrow-active:after {
-          border-color: transparent transparent #fff transparent;
-          top: 7px;
-        }
-
-        /*style the items (options), including the selected item:*/
-        .select-items div,.select-selected {
-          color: #ffffff;
-          padding: 6px 16px;
-          border: 1px solid transparent;
-          border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-          cursor: pointer;
-          user-select: none;
-          border-radius: 5px;
-        }
-
-        /*style items (options):*/
-        .select-items {
-          position: relative;
-          background-color: DodgerBlue;
-          top: 100%;
-          left: 0;
-          right: 0;
-          z-index: 999;
-          border-bottom-left-radius: 5px;
-          border-bottom-right-radius: 5px;
-        }
-
-        /*hide the items when the select box is closed:*/
-        .select-hide {
-          display: none;
-        }
-
-        .select-items div:hover, .same-as-selected {
-          background-color: rgba(0, 0, 0, 0.1);
-        }
-        </style>
-   <!-- data Table -->
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" defer></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 @extends('layouts.app')
 
 @section('content')
+<style>
+    /*the container must be positioned relative:*/
+    .custom-select {
+      position: relative;
+      font-family: Arial;
+    }
+
+    .custom-select select {
+      display: none; /*hide original SELECT element:*/
+    }
+
+    .select-selected {
+      background-color: DodgerBlue;
+    }
+
+    /*style the arrow inside the select element:*/
+    .select-selected:after {
+      position: absolute;
+      content: "";
+      top: 14px;
+      right: 10px;
+      width: 0;
+      height: 0;
+      border: 6px solid transparent;
+      border-color: #fff transparent transparent transparent;
+    }
+
+    /*point the arrow upwards when the select box is open (active):*/
+    .select-selected.select-arrow-active:after {
+      border-color: transparent transparent #fff transparent;
+      top: 7px;
+    }
+
+    /*style the items (options), including the selected item:*/
+    .select-items div,.select-selected {
+      color: #ffffff;
+      padding: 6px 16px;
+      border: 1px solid transparent;
+      border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+      cursor: pointer;
+      user-select: none;
+      border-radius: 5px;
+    }
+
+    /*style items (options):*/
+    .select-items {
+      position: relative;
+      background-color: DodgerBlue;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    /*hide the items when the select box is closed:*/
+    .select-hide {
+      display: none;
+    }
+
+    .select-items div:hover, .same-as-selected {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    .custom{
+        width: 200px;
+        border-radius: 5px;
+        padding:7px 7px 7px 7px;
+    }
+
+    </style>
 <!-- page content -->
 <div class="right_col" role="main">
 
@@ -175,13 +179,11 @@
 
                     <!-- we will also add show, edit, and delete buttons -->
                     <td width="150" style="vertical-align: top;">
-                        <div class="custom-select" style="width:200px;">
-                            <select name="" onchange="location = this.value;">
+                            <select class="custom btn-primary" onchange="location = this.value;">
                                 <option selected="true" disabled="disabled">แก้ไข</option>
-                                <option value="/enterprise">แก้ไขข้อมูลส่วนตัว</option>
-                                <option>แก้ไขข้อมูลโครงการที่รับผิดชอบ</option>
+                                <option value="/user/{{$value->id}}/edit" style="position:relative;">แก้ไขข้อมูลผู้ใช้งาน</option>
+                                <option value="/enterprise">แก้ไขข้อมูลโครงการที่รับผิดชอบ</option>
                             </select>
-                        </div>
                     </td>
                     <td style="vertical-align: top;">
                         <button class="btn btn-danger" onclick="Delete()">Delete</button>
