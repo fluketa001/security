@@ -1,10 +1,13 @@
 @php
+if(!empty($user)){
     if($user->status != "admin"){
-        header( 'refresh: 0; url=/select-project' );
+        redirect()->to('/home')->send();
         exit(0);
     }
+}else{
+    redirect()->to('/home')->send();
+}
 @endphp
-
 @extends('layouts.app')
 
 @section('content')
@@ -83,6 +86,11 @@
 <div class="right_col" role="main">
 
 <div class="row">
+        @if (session('Confirm'))
+            <div class="alert alert-success">
+                {{ session('Confirm') }}
+            </div>
+        @endif
 <div class="col-md-12 col-sm-12 col-xs-12">
  <div class="dashboard_graph">
 
@@ -186,7 +194,7 @@
                             </select>
                     </td>
                     <td style="vertical-align: top;">
-                        <button class="btn btn-danger" onclick="Delete()">Delete</button>
+                        <button class="btn btn-danger" onclick="Delete({{$value->id}})">Delete</button>
                         {{--<a href="#" onClick="return confirm('คุณต้องการที่จะลบข้อมูลนี้หรือไม่ ?');"><button class="btn btn-danger">Delete</button></a>--}}
                     </td>
 
@@ -201,7 +209,7 @@
 </div>
 </div>
 <script type="text/javascript">
-    function Delete(){
+    function Delete(data){
         swal({   title: "คุณต้องการจะลบผู้ใช้นี้!",
         text: "คุณแน่ใจที่จะลบ?",
         type: "warning",
@@ -215,7 +223,7 @@
             if (isConfirm)
             {
             //swal("Account Removed!", "Your account is removed permanently!", "success");
-            document.location = "/user";
+            document.location = "user/delete/"+data;
             }
             else {
                 swal("เย้", "ผู้ใช้ไม่ถูกลบ!", "error");

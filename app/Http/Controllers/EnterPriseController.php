@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\EnterPrise;
+use DB;
 
 class EnterPriseController extends Controller
 {
@@ -62,6 +63,24 @@ class EnterPriseController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|string|max:50',
+            'telephone' => 'required|string',
+            'address' => 'required|string',
+            'picture' => 'required'
+        ]);
+
+        $success = DB::table('enterprises')
+            ->insert(['name' => $request->input('name'),'telephone' => $request->input('telephone'),
+            'address' => $request->input('address'),'picture' => $request->input('picture')]);
+
+
+        // redirect
+        if($success){
+            return redirect('/enterprise')->with('Confirm', 'เพิ่มข้อมูลโครงการใหม่เรียบร้อย');
+        }else{
+            return redirect('/enterprise')->with('Error', 'เพิ่มข้อมูลโครงการใหม่ไม่สำเร็จ');
+        }
         //
     }
 
@@ -86,6 +105,8 @@ class EnterPriseController extends Controller
      */
     public function edit($id)
     {
+        $enterprises = EnterPrise::all()->where('id',$id);
+        return View('enterprises.edit_enterprise')->with('enterprises',$enterprises);
         //
     }
 
@@ -98,7 +119,50 @@ class EnterPriseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    }
+    public function update_post(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:50',
+            'telephone' => 'required|string',
+            'address' => 'required|string'
+        ]);
+
+            if ($request->hasFile('picture')) {
+                $file = $request->file('picture');
+                $picture_name = DB::table('enterprises')->where('picture',$file->getClientOriginalName())->count();
+                //dd($picture_name);
+
+                if($picture_name > 0){
+                    return redirect('/enterprise')->with('Error', 'แก้ไขข้อมูลไม่สำเร็จ! กรุณาเปลี่ยนชื่อไฟล์รูปภาพ');
+                }else{
+                    $success = DB::table('enterprises')
+                        ->where('id', $id)
+                        ->update(['name' => $request->input('name'),'telephone' => $request->input('telephone'),
+                        'address' => $request->input('address'),'picture' => $file->getClientOriginalName()]);
+                        //เอาไฟล์ที่อัพโหลด ไปเก็บไว้ที่ public/uploads/ชื่อไฟล์เดิม
+                        $file->move('img', $file->getClientOriginalName());
+
+                    if($success){
+                        return redirect('/enterprise')->with('Confirm', 'อัพเดตข้อมูลโครงการใหม่เรียบร้อย');
+                    }else{
+                        return redirect('/enterprise')->with('Error', 'อัพเดตข้อมูลโครงการใหม่ไม่สำเร็จ');
+                    }
+                }
+            } else {
+                $success = DB::table('enterprises')
+                    ->where('id', $id)
+                    ->update(['name' => $request->input('name'),'telephone' => $request->input('telephone'),
+                    'address' => $request->input('address')]);
+
+                if($success){
+                    return redirect('/enterprise')->with('Confirm', 'อัพเดตข้อมูลโครงการใหม่เรียบร้อย');
+                }else{
+                    return redirect('/enterprise')->with('Error', 'อัพเดตข้อมูลโครงการใหม่ไม่สำเร็จ');
+                }
+                dd('Request Has No File');
+            }
+
     }
 
     /**

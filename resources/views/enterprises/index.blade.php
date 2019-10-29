@@ -1,3 +1,13 @@
+@php
+if(!empty($user)){
+    if($user->status != "admin"){
+        redirect()->to('/home')->send();
+        exit(0);
+    }
+}else{
+    redirect()->to('/home')->send();
+}
+@endphp
 
 @extends('layouts.app')
 
@@ -6,6 +16,15 @@
 <div class="right_col" role="main">
 
 <div class="row">
+    @if (session('Confirm'))
+        <div class="alert alert-success">
+            {{ session('Confirm') }}
+        </div>
+    @else
+        <div class="alert alert-danger">
+            {{ session('Error') }}
+        </div>
+    @endif
 <div class="col-md-12 col-sm-12 col-xs-12">
  <div class="dashboard_graph">
 
@@ -20,6 +39,7 @@
             </div>
         </div>
     </div>
+    <center><a href="/add"><button class="btn btn-success">เพิ่มโครงการใหม่</button></a></center>
 
             <table id="example" class="table table-striped" style="width:100%">
                 <thead>
@@ -41,7 +61,7 @@
 
                     <!-- we will also add show, edit, and delete buttons -->
                     <td>
-                        <a class="btn btn-info" href="{{ URL::to('blogs/' . $value->id . '/edit') }}">Edit</a>
+                        <a class="btn btn-info" href="/enterprise/{{$value->id}}/edit">Edit</a>
                         <button class="btn btn-danger" onclick="Delete()">Delete</button>
                     </td>
                 </tr>

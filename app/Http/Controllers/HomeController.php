@@ -22,12 +22,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index($data)
+    public function index()
     {
         //if($data){
             //Session::set('datas', $data);
-            $id = EnterPrise::where('id', '=', $data)->firstOrFail();
-            return view('/home')->with('id',$id);
+            /*$id = EnterPrise::where('id', '=', $data)->firstOrFail();*/
+            return view('/home');
 
         //}else{
           //  return redirect('/select-project');

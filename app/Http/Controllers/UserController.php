@@ -92,8 +92,28 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $this->validate($request, [
+            'name' => 'required|string|max:50',
+            'telephone' => 'required|string',
+            'address' => 'required|string',
+            'gender' => 'required|string',
+            'status' => 'required|string',
+        ]);
+
+        $success = DB::table('users')
+            ->where('id', $id)
+            ->update(['name' => $request->input('name'),'telephone' => $request->input('telephone'),
+            'address' => $request->input('address'),'gender' => $request->input('gender'),
+            'status' => $request->input('status')]);
+
+        // redirect
+        if($success){
+            return redirect('user')->with('Confirm', 'อัพเดตข้อมูลผู้ใช้เรียบร้อย');
+        }else{
+            return redirect('user')->with('Error', 'อัพเดตข้อมูลไม่สำเร็จ');
+        }
+            //
+        }
 
     /**
      * Remove the specified resource from storage.
@@ -103,6 +123,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        DB::table('users')->where('id', '=', $id)->delete();
+        return redirect('user')->with('message', 'Successfully delete blog!');
         //
     }
 }

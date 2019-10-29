@@ -12,18 +12,27 @@
 */
 
 Route::get('/', function () {
-    return redirect('/select-project');
+    return redirect('/home');
 });
 
 Auth::routes();
 
-Route::get('/home', function () {
-    return redirect('/select-project');
-});
-Route::get('/home/{data}', 'HomeController@index')->name('home');
+/*Route::get('/home', function () {
+    return redirect('/home/{data}');
+});*/
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/select-project', 'SelectProject@index')->name('select-project');
 Route::resource('enterprise', 'EnterPriseController');
+Route::post('/enterprise/{data}', 'EnterPriseController@update_post');
+
+Route::get('/add', function () {
+    return view('enterprises.add_enterprise');
+});
+
 Route::resource('user', 'UserController');
+
+Route::get('/user/delete/{data}', 'UserController@destroy');
+//Route::get('/user/{data}', 'UserController@update');
 
 View::composer(['*'], function ($view) {
     $user = Auth::user();

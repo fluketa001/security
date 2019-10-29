@@ -24,29 +24,8 @@
 
                       <!-- sidebar menu -->
                       <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                          <h3>General</h3>
-                          <ul class="nav side-menu">
-                            <li><a href="/home/{{$id->id ?? ''}}"><i class="fa fa-home"></i> หน้าหลัก </a></li>
-                            <li><a href="#"><i class="fa fa-search"></i> ค้นหาข้อมูล <span class="fa fa-chevron-down"></span></a>
-                              <ul class="nav child_menu">
-                                <li><a href="#">ทะเบียนรถ</a></li>
-                                <li><a href="#">ชื่อ - นามสกุล</a></li>
-                                <li><a href="#">หมายเลขยูนิต/บ้านเลขที่</a></li>
-                              </ul>
-                            </li>
-                            <li><a><i class="fa fa-desktop"></i> ประวัติการจอด </a></li>
-                          </ul>
-                        </div>
+                            @php
 
-                        <div class="menu_section">
-                          <h3>CHANGE</h3>
-                          <ul class="nav side-menu">
-                            <li><a href="{{ url('/select-project') }}"><i class="fa fa-clone"></i>เปลี่ยนโครงการ</a></li>
-                          </ul>
-                        </div>
-
-                        @php
                             if($user->status == "admin"){
                                 echo "
                                 <div class='menu_section'>
@@ -57,6 +36,20 @@
                                     </ul>
                                 </div>
                                 ";
+
+                        echo "<div class='menu_section'>
+                        <h3>Report</h3>
+                        <ul class='nav side-menu'>
+                            <li><a href='#'><i class='fa fa-search'></i> ค้นหาข้อมูล <span class='fa fa-chevron-down'></span></a>
+                              <ul class='nav child_menu'>
+                                <li><a href='#'>ทะเบียนรถ</a></li>
+                                <li><a href='#'>ชื่อ - นามสกุล</a></li>
+                                <li><a href='#'>หมายเลขยูนิต/บ้านเลขที่</a></li>
+                              </ul>
+                            </li>
+                            <li><a><i class='fa fa-desktop'></i> ประวัติการจอด </a></li>
+                        </ul>
+                        </div>";
                             }
                         @endphp
 
@@ -116,75 +109,9 @@
                               </li>
                             </ul>
                           </li>
-
-                    {{--
-                        <li role="presentation" class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                              <i class="fa fa-envelope-o"></i>
-                              <span class="badge bg-green">6</span>
-                            </a>
-                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                              <li>
-                                <a>
-                                  <span class="image"><img src="{{ asset('images/img.jpg') }}" alt="Profile Image" /></span>
-                                  <span>
-                                    <span>John Smith</span>
-                                    <span class="time">3 mins ago</span>
-                                  </span>
-                                  <span class="message">
-                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                  </span>
-                                </a>
-                              </li>
-                              <li>
-                                <a>
-                                  <span class="image"><img src="{{ asset('images/img.jpg') }}" alt="Profile Image" /></span>
-                                  <span>
-                                    <span>John Smith</span>
-                                    <span class="time">3 mins ago</span>
-                                  </span>
-                                  <span class="message">
-                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                  </span>
-                                </a>
-                              </li>
-                              <li>
-                                <a>
-                                  <span class="image"><img src="{{ asset('images/img.jpg') }}" alt="Profile Image" /></span>
-                                  <span>
-                                    <span>John Smith</span>
-                                    <span class="time">3 mins ago</span>
-                                  </span>
-                                  <span class="message">
-                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                  </span>
-                                </a>
-                              </li>
-                              <li>
-                                <a>
-                                  <span class="image"><img src="{{ asset('images/img.jpg') }}" alt="Profile Image" /></span>
-                                  <span>
-                                    <span>John Smith</span>
-                                    <span class="time">3 mins ago</span>
-                                  </span>
-                                  <span class="message">
-                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                  </span>
-                                </a>
-                              </li>
-                              <li>
-                                <div class="text-center">
-                                  <a>
-                                    <strong>See All Alerts</strong>
-                                    <i class="fa fa-angle-right"></i>
-                                  </a>
-                                </div>
-                              </li>
-                            </ul>
-                          </li>
-                          --}}
                         </ul>
                       </nav>
                     </div>
                   </div>
                   <!-- /top navigation -->
+
