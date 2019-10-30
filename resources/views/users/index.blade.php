@@ -186,7 +186,7 @@ if(!empty($user)){
                             <select class="custom btn-primary" onchange="location = this.value;">
                                 <option selected="true" disabled="disabled">แก้ไข</option>
                                 <option value="/user/{{$value->id}}/edit" style="position:relative;">แก้ไขข้อมูลผู้ใช้งาน</option>
-                                <option value="/enterprise">แก้ไขข้อมูลโครงการที่รับผิดชอบ</option>
+                                <option value="/detail_user/{{$value->id}}/edit">แก้ไขข้อมูลโครงการที่รับผิดชอบ</option>
                             </select>
                     </td>
                     <td style="vertical-align: top;">

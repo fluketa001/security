@@ -29,6 +29,7 @@ Route::get('/add', function () {
     return view('enterprises.add_enterprise');
 });
 
+Route::resource('detail_user', 'DetailUserController');
 Route::resource('user', 'UserController');
 
 Route::get('/enterprise/delete/{data}', 'EnterPriseController@destroy');
