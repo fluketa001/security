@@ -173,6 +173,8 @@ class EnterPriseController extends Controller
      */
     public function destroy($id)
     {
+        DB::table('enterprises')->where('id', '=', $id)->delete();
+        return redirect('/enterprise')->with('Confirm', 'ลบข้อมูลโครงการเรียบร้อย');
         //
     }
 }

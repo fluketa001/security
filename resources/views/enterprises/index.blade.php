@@ -62,7 +62,7 @@ if(!empty($user)){
                     <!-- we will also add show, edit, and delete buttons -->
                     <td>
                         <a class="btn btn-info" href="/enterprise/{{$value->id}}/edit">Edit</a>
-                        <button class="btn btn-danger" onclick="Delete()">Delete</button>
+                        <button class="btn btn-danger" onclick="Delete({{$value->id}})">Delete</button>
                     </td>
                 </tr>
             @endforeach
@@ -76,7 +76,7 @@ if(!empty($user)){
 </div>
 
 <script type="text/javascript">
-    function Delete(){
+    function Delete(data){
         swal({   title: "คุณต้องการจะลบโครงการนี้!",
         text: "คุณแน่ใจที่จะลบ?",
         type: "warning",
@@ -90,7 +90,7 @@ if(!empty($user)){
             if (isConfirm)
             {
             //swal("Account Removed!", "Your account is removed permanently!", "success");
-            document.location = "/enterprise";
+            document.location = "enterprise/delete/"+data;
             }
             else {
                 swal("เย้", "โครงการนี้ไม่ถูกลบ!", "error");

@@ -154,29 +154,25 @@ if(!empty($user)){
                     <td align="center" style="vertical-align: top;">
                         <div style="width:220px;">
                             <div class="custom-select" style="width:220px;">
-                                <select name="">
+                                <select>
                                     @php
-                                        $n = 1
+                                        $n = 0;
                                     @endphp
                                     @foreach($enterprises as $key_enterprises => $value_enterprises)
-                                        @php
-                                            $have = "";
-                                        @endphp
                                         @foreach($detail_user as $detail => $value_detail)
                                             @php
                                             if( $value_enterprises->id == $value_detail->enterprises_id && $value_detail->user_id == $value->id ){
-                                                    if($n == "1"){
+                                                    $n = $n+1;
+                                                    if($n == 1){
                                                         echo "<option selected='true' disabled='disabled'>มีโครงการ</option>";
                                                     }
-                                                    $have = "<option value='{{$value_detail->enterprises_id}}'>{$value_detail->enterprises_name}</option>";
-                                                    echo "<option value='{{$value_detail->enterprises_id}}'>{$value_detail->enterprises_name}</option>";
-                                                    $n = $n+1;
+                                                    echo "<option>{$value_detail->enterprises_name}</option>";
                                                 }
                                             @endphp
                                         @endforeach
                                     @endforeach
                                     @php
-                                        if($have == null){
+                                        if($n == 0){
                                             echo "<option selected='true' disabled='disabled'>ไม่มีโครงการที่รับผิดชอบ</option>";
                                         }
                                     @endphp

@@ -124,7 +124,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         DB::table('users')->where('id', '=', $id)->delete();
-        return redirect('user')->with('message', 'Successfully delete blog!');
+        return redirect('user')->with('Confirm', 'ลบข้อมูลผู้ใช้งานเรียบร้อย');
         //
     }
 }

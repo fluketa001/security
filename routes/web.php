@@ -31,6 +31,7 @@ Route::get('/add', function () {
 
 Route::resource('user', 'UserController');
 
+Route::get('/enterprise/delete/{data}', 'EnterPriseController@destroy');
 Route::get('/user/delete/{data}', 'UserController@destroy');
 //Route::get('/user/{data}', 'UserController@update');
 
