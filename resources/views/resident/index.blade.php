@@ -30,7 +30,7 @@ if(!empty($user)){
 
     <div class="row x_title">
         <div class="col-md-6">
-            <h3>ข้อมูลโครงการ <small>(Project info){{--Graph title sub-title--}}</small></h3>
+            <h3>ข้อมูลผู้พักอาศัย <small>(Resident info){{--Graph title sub-title--}}</small></h3>
         </div>
         <div class="col-md-6">
             <div class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
@@ -39,7 +39,7 @@ if(!empty($user)){
             </div>
         </div>
     </div>
-    <center><a href="/add"><button class="btn btn-success">เพิ่มโครงการใหม่</button></a></center>
+    <center><a href="/resident/create/{{$id}}"><button class="btn btn-success">เพิ่มข้อมูลผู้พักอาศัย</button></a></center>
 
             <table id="example" class="table table-striped" style="width:100%">
                 <thead>
@@ -48,16 +48,22 @@ if(!empty($user)){
                         <th>ชื่อโครงการ</th>
                         <th>ที่อยู่</th>
                         <th>โทรศัพท์</th>
+                        <th>สถานะ</th>
+                        <th>ทะเบียนรถ</th>
+                        <th>ชนิดรถ</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-			@foreach($enterprises as $key => $value)
+			@foreach($residents as $key => $value)
                 <tr>
                     <td align="center">{{ $loop->index+1 }}</td>
                     <td>{{ $value->name }}</td>
-                    <td>{{ $value->address }}</td>
+                    <td>{{ $value->home_number }}</td>
                     <td>{{ $value->telephone }}</td>
+                    <td>{{ $value->status }}</td>
+                    <td>{{ $value->license_plate }}</td>
+                    <td>{{ $value->car_type }}</td>
 
                     <!-- we will also add show, edit, and delete buttons -->
                     <td>

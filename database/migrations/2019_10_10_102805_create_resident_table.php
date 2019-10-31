@@ -16,9 +16,11 @@ class CreateResidentTable extends Migration
         Schema::create('resident', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('gender');
             $table->string('home_number');
             $table->string('telephone');
             $table->string('status');
+            $table->string('car_type');
             $table->string('license_plate');
             $table->integer('enterprise_id');
             $table->timestamps();

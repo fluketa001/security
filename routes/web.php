@@ -21,16 +21,20 @@ Auth::routes();
     return redirect('/home/{data}');
 });*/
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/select-project', 'SelectProject@index')->name('select-project');
-Route::resource('enterprise', 'EnterPriseController');
+
 Route::post('/enterprise/{data}', 'EnterPriseController@update_post');
 
 Route::get('/add', function () {
     return view('enterprises.add_enterprise');
 });
+Route::get('/resident/create/{id}', 'ResidentController@create');
+Route::get('/select-enterprise', 'ResidentController@index')->name('select-enterprise');
 
+Route::resource('enterprise', 'EnterPriseController');
 Route::resource('detail_user', 'DetailUserController');
 Route::resource('user', 'UserController');
+Route::resource('resident', 'ResidentController');
+Route::resource('inout', 'InOutController');
 
 Route::get('/enterprise/delete/{data}', 'EnterPriseController@destroy');
 Route::get('/user/delete/{data}', 'UserController@destroy');

@@ -31,8 +31,17 @@
                                 <div class='menu_section'>
                                     <h3>MANAGE</h3>
                                     <ul class='nav side-menu'>
-                                    <li><a href='/user'><i class='fa fa-users'></i>ผู้ใช้งาน</a></li>
+                                        <li><a href='/user'><i class='fa fa-users'></i>ผู้ใช้งาน</a></li>
                                         <li><a href='/enterprise'><i class='fa fa-home'></i>โครงการ</a></li>
+                                        <a href='/select-enterprise'>
+                                        <li><i class='fa fa-search'></i> ข้อมูลลูกบ้าน <span class='fa fa-chevron-down'></span>
+                                        <ul class='nav child_menu'>
+                                            <li><a href='#'>ทะเบียนรถ</a></li>
+                                            <li><a href='#'>ชื่อ - นามสกุล</a></li>
+                                            <li><a href='#'>หมายเลขยูนิต/บ้านเลขที่</a></li>
+                                        </ul>
+                                        </li>
+                                        </a>
                                     </ul>
                                 </div>
                                 ";
@@ -40,13 +49,6 @@
                         echo "<div class='menu_section'>
                         <h3>Report</h3>
                         <ul class='nav side-menu'>
-                            <li><a href='#'><i class='fa fa-search'></i> ค้นหาข้อมูล <span class='fa fa-chevron-down'></span></a>
-                              <ul class='nav child_menu'>
-                                <li><a href='#'>ทะเบียนรถ</a></li>
-                                <li><a href='#'>ชื่อ - นามสกุล</a></li>
-                                <li><a href='#'>หมายเลขยูนิต/บ้านเลขที่</a></li>
-                              </ul>
-                            </li>
                             <li><a><i class='fa fa-desktop'></i> ประวัติการจอด </a></li>
                         </ul>
                         </div>";
