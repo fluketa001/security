@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Detail_Users;
 use Illuminate\Http\Request;
 use App\EnterPrise;
 use App\User;
@@ -82,6 +83,25 @@ class DetailUserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //dd($request->detail_user);
+        if($request->detail_user != "1"){
+            DB::table('detail_users')->where('user_id', '=', $id)->delete();
+            for ($i = 0; $i < count($request->detail_user); $i++) {
+                $answers[] = [
+                    'user_id' => $id,
+                    'enterprise_id' => $request->detail_user[$i]
+                ];
+            }
+            $success = Detail_Users::insert($answers);
+        }else{
+            $success = DB::table('detail_users')->where('user_id', '=', $id)->delete();
+        }
+        // redirect
+        if($success){
+            return redirect('user')->with('Confirm', 'อัพเดตโครงการที่รับผิดชอบเรียบร้อย');
+        }else{
+            return redirect('user')->with('Error', 'อัพเดตโครงการที่รับผิดชอบไม่สำเร็จ');
+        }
         //
     }
 

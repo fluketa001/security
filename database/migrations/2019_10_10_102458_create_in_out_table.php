@@ -19,6 +19,8 @@ class CreateInOutTable extends Migration
             $table->dateTime('car_out');
             $table->string('description');
             $table->string('license_plate');
+            $table->string('status');
+            $table->string('car_type');
             $table->integer('enterprise_id');
             $table->timestamps();
         });

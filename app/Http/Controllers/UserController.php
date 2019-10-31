@@ -113,7 +113,7 @@ class UserController extends Controller
             return redirect('user')->with('Error', 'อัพเดตข้อมูลไม่สำเร็จ');
         }
             //
-        }
+    }
 
     /**
      * Remove the specified resource from storage.

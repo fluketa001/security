@@ -51,7 +51,8 @@ if(!empty($user)){
                 <div class="col-md-6">
                 </div>
             </div>
-                <form method="POST" action="{{ route('enterprise.index') }}">
+            @foreach ($users as $update)
+                <form method="POST" action="{{ route('detail_user.update', $update->id) }}">
                     @foreach ($enterprises as $value)
                         @php
                             $n = 0;
@@ -64,14 +65,14 @@ if(!empty($user)){
                             <div class="col-md-6">
                             @foreach ($detail_user as $value_detail)
                                 @if($value->id == $value_detail->enterprises_id)
+                                    {{--<input type="hidden" name="enterprise_id[]" value="{{ $value->id }}">--}}
                                     <input type="checkbox" class="form-control @error('name') is-invalid @enderror" name="detail_user[]" value="{{ $value->id }}" checked>
                                     @php $n = $n+1; @endphp
-
                                 @endif
                             @endforeach
                             @if($n == 0)
+                                {{--<input type="hidden" name="enterprise_id[]" value="{{ $value->id }}">--}}
                                 <input type="checkbox" class="form-control @error('name') is-invalid @enderror" name="detail_user[]" value="{{ $value->id }}">
-
                             @endif
                             </div>
                         </div>
@@ -91,6 +92,7 @@ if(!empty($user)){
                             </div>
                         </div>
                     </form>
+                @endforeach
         </div>
         </div>
     </div>
