@@ -45,23 +45,36 @@ class ResidentController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:50',
+            'gender' => 'required|string',
             'home_number' => 'required|string',
             'telephone' => 'required|string|max:10',
             'status' => 'required|string',
             'car_type' => 'required|string',
-            'license_plate' => 'required'
+            'license_plate' => 'required',
+            'province' => 'required',
+            'color' => 'required',
+            'enterprise_id' => 'required'
         ]);
 
         $success = DB::table('resident')
-            ->insert(['name' => $request->input('name'),'telephone' => $request->input('telephone'),
-            'address' => $request->input('address'),'picture' => $request->input('picture')]);
-
+            ->insert([
+                'name' => $request->input('name'),
+                'gender' => $request->input('gender'),
+                'home_number' => $request->input('home_number'),
+                'telephone' => $request->input('telephone'),
+                'status' => $request->input('status'),
+                'car_type' => $request->input('car_type'),
+                'license_plate' => $request->input('license_plate'),
+                'province' => $request->input('province'),
+                'color' => $request->input('color'),
+                'enterprise_id' => $request->input('enterprise_id')
+            ]);
 
         // redirect
         if($success){
-            return redirect('/enterprise')->with('Confirm', 'เพิ่มข้อมูลโครงการใหม่เรียบร้อย');
+            return redirect('/resident/'.$request->input('enterprise_id'))->with('Confirm', 'เพิ่มข้อมูลลูกบ้านใหม่เรียบร้อย');
         }else{
-            return redirect('/enterprise')->with('Error', 'เพิ่มข้อมูลโครงการใหม่ไม่สำเร็จ');
+            return redirect('/resident/'.$request->input('enterprise_id'))->with('Error', 'เพิ่มข้อมูลลูกบ้านใหม่ไม่สำเร็จ');
         }
         //
     }
@@ -92,6 +105,11 @@ class ResidentController extends Controller
      */
     public function edit($id)
     {
+        $residents = DB::table('resident')->where('id', $id)->first();
+        $enterprises = DB::table('enterprises')->where('id', $residents->enterprise_id)->first();
+        return view('resident.edit_resident')
+        ->with('residents',$residents)
+        ->with('enterprises',$enterprises);
         //
     }
 
@@ -104,6 +122,40 @@ class ResidentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required|string|max:50',
+            'gender' => 'required|string',
+            'home_number' => 'required|string',
+            'telephone' => 'required|string|max:10',
+            'status' => 'required|string',
+            'car_type' => 'required|string',
+            'license_plate' => 'required',
+            'province' => 'required',
+            'color' => 'required',
+            'enterprise_id' => 'required'
+        ]);
+
+        $success = DB::table('resident')
+            ->where('id', $id)
+            ->update([
+                'name' => $request->input('name'),
+                'gender' => $request->input('gender'),
+                'home_number' => $request->input('home_number'),
+                'telephone' => $request->input('telephone'),
+                'status' => $request->input('status'),
+                'car_type' => $request->input('car_type'),
+                'license_plate' => $request->input('license_plate'),
+                'province' => $request->input('province'),
+                'color' => $request->input('color'),
+                'enterprise_id' => $request->input('enterprise_id')
+            ]);
+
+        // redirect
+        if($success){
+            return redirect('/resident/'.$request->input('enterprise_id'))->with('Confirm', 'แก้ไขข้อมูลลูกบ้านเรียบร้อย');
+        }else{
+            return redirect('/resident/'.$request->input('enterprise_id'))->with('Error', 'แก้ไขข้อมูลลูกบ้านไม่สำเร็จ');
+        }
         //
     }
 
@@ -115,6 +167,9 @@ class ResidentController extends Controller
      */
     public function destroy($id)
     {
+        $residents = DB::table('resident')->where('id', $id)->first();
+        DB::table('resident')->where('id', '=', $id)->delete();
+        return redirect('/resident/'.$residents->enterprise_id)->with('Confirm', 'ลบข้อมูลผู้ใช้งานเรียบร้อย');
         //
     }
 }

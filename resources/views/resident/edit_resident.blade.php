@@ -1,0 +1,226 @@
+@php
+    if($user->status != "admin"){
+        header( 'refresh: 0; url=/select-project' );
+        exit(0);
+    }
+@endphp
+@extends('layouts.app')
+
+@section('content')
+<!-- page content -->
+<div class="right_col" role="main">
+
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+ <div class="dashboard_graph">
+
+    <div class="row x_title">
+        <div class="col-md-6">
+            <h3>แก้ไขข้อมูลผู้พักอาศัย <small>(Edit Resident){{--Graph title sub-title--}}</small></h3>
+        </div>
+        <div class="col-md-6">
+            <div class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                @include('layouts.time')
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+        <div style="margin:50px 50px 50px 50px;">
+
+            <form method="POST" action="{{ route('resident.update',$residents->id) }}">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="form-group row">
+                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('ชื่อ - นามสกุล') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $residents->name }}" required autocomplete="name" autofocus>
+
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('เพศ') }}</label>
+
+                    <div class="col-md-6">
+                        <select class="form-control @error('gender') is-invalid @enderror" name="gender" required>
+                            <option value="male" @php if($residents->gender == 'male' ){ echo 'selected';} @endphp>ชาย</option>
+                            <option value="female" @php if($residents->gender == 'female' ){ echo 'selected';} @endphp>หญิง</option>
+                        </select>
+
+                        @error('gender')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="home_number" class="col-md-4 col-form-label text-md-right">{{ __('บ้านเลขที่') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="home_number" type="text" class="form-control @error('home_number') is-invalid @enderror" name="home_number" value="{{ $residents->home_number }}" required autocomplete="home_number" placeholder="1188/405 A322">
+
+                        @error('home_number')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="telephone" class="col-md-4 col-form-label text-md-right">{{ __('เบอร์โทรศัพท์') }}</label>
+
+                    <div class="col-md-6">
+                        <font color="red">*ไม่ต้องใส่ ( - ) คั่นระหว่างเบอร์</font>
+                        <input id="telephone" type="tel" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{ $residents->telephone }}" required pattern="[\d{3}[\-]\d{3}[\-]\d{4}]" maxlength="10" placeholder="0845216366">
+
+                        @error('telephone')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="status" class="col-md-4 col-form-label text-md-right">{{ __('สถานะ') }}</label>
+
+                    <div class="col-md-6">
+                        <select class="form-control @error('status') is-invalid @enderror" value="{{ $residents->status }}" name="status" required>
+                            <option value="เจ้าของ">เจ้าของ</option>
+                            <option value="ผู้พักอาศัย">ผู้พักอาศัย</option>
+                            <option value="ผู้เช่า">ผู้เช่า</option>
+                        </select>
+
+                        @error('status')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="car_type" class="col-md-4 col-form-label text-md-right">{{ __('ชนิดรถ') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="car_type" type="text" class="form-control @error('car_type') is-invalid @enderror" name="car_type" value="{{ $residents->car_type }}" required autocomplete="car_type" placeholder="รถจักรยานยนต์/รถยนต์">
+
+                        @error('car_type')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="license_plate" class="col-md-4 col-form-label text-md-right">{{ __('ทะเบียนรถ') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="license_plate" type="text" class="form-control @error('license_plate') is-invalid @enderror" name="license_plate" value="{{ $residents->license_plate }}" required autocomplete="license_plate" placeholder="กร4512">
+
+                        @error('license_plate')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="province" class="col-md-4 col-form-label text-md-right">{{ __('จังหวัด') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="province" type="text" class="form-control @error('province') is-invalid @enderror" name="province" value="{{ $residents->province }}" required autocomplete="province" placeholder="ขอนแก่น">
+
+                        @error('province')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="color" class="col-md-4 col-form-label text-md-right">{{ __('สีรถ') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="color" type="text" class="form-control @error('color') is-invalid @enderror" name="color" value="{{ $residents->color }}" required autocomplete="color" placeholder="ดำเทา">
+
+                        @error('color')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="enterprise_name" class="col-md-4 col-form-label text-md-right">{{ __('ชื่อโครงการ') }}</label>
+
+                    <div class="col-md-6">
+                        <input type="hidden" name="enterprise_id" value="{{ $enterprises->id }}" required>
+                        <input id="enterprise_name" type="text" class="form-control @error('enterprise_name') is-invalid @enderror" name="enterprise_name" value="{{ $enterprises->name }}" required autocomplete="enterprise_name" readonly>
+
+                        @error('enterprise_name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                {{--<div class="form-group row">
+                    <label for="picture" class="col-md-4 col-form-label text-md-right">{{ __('รูปภาพ') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="picture" type="file" class="form-control @error('picture') is-invalid @enderror" name="picture">
+
+                        @error('picture')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>--}}
+
+                <div class="form-group row" style="margin-top:40px;">
+                    <label for="status" class="col-md-4 col-form-label text-md-right"></label>
+                    <div class="col-md-6 offset-md-4">
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('แก้ไขข้อมูลผู้พักอาศัย') }}
+                        </button>
+                        <a href='{{ URL('/resident',$enterprises->id) }}'>
+                            <button type='button' class='btn btn-danger'>
+                                {{ __('ย้อนกลับ') }}
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    </div>
+
+
+
+</div>
+</div>
+</div>
+
+<!-- /page content -->
+@endsection

@@ -38,6 +38,7 @@ Route::resource('inout', 'InOutController');
 
 Route::get('/enterprise/delete/{data}', 'EnterPriseController@destroy');
 Route::get('/user/delete/{data}', 'UserController@destroy');
+Route::get('/resident/delete/{data}', 'ResidentController@destroy');
 //Route::get('/user/{data}', 'UserController@update');
 
 View::composer(['*'], function ($view) {

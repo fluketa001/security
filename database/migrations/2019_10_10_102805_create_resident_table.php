@@ -22,6 +22,8 @@ class CreateResidentTable extends Migration
             $table->string('status');
             $table->string('car_type');
             $table->string('license_plate');
+            $table->string('province');
+            $table->string('color');
             $table->integer('enterprise_id');
             $table->timestamps();
         });

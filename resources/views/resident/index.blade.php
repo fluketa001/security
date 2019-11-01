@@ -45,12 +45,15 @@ if(!empty($user)){
                 <thead>
                     <tr>
                         <th>ลำดับ</th>
-                        <th>ชื่อโครงการ</th>
+                        <th>ชื่อ-นามสกุล</th>
+                        <th>เพศ</th>
                         <th>ที่อยู่</th>
                         <th>โทรศัพท์</th>
                         <th>สถานะ</th>
                         <th>ทะเบียนรถ</th>
+                        <th>จังหวัด</th>
                         <th>ชนิดรถ</th>
+                        <th>สีรถ</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -59,15 +62,18 @@ if(!empty($user)){
                 <tr>
                     <td align="center">{{ $loop->index+1 }}</td>
                     <td>{{ $value->name }}</td>
+                    <td>@php if($value->gender == "male"){ echo"ชาย"; }else{ echo"หญิง"; } @endphp</td>
                     <td>{{ $value->home_number }}</td>
                     <td>{{ $value->telephone }}</td>
                     <td>{{ $value->status }}</td>
                     <td>{{ $value->license_plate }}</td>
+                    <td>{{ $value->province }}</td>
                     <td>{{ $value->car_type }}</td>
+                    <td>{{ $value->color }}</td>
 
                     <!-- we will also add show, edit, and delete buttons -->
                     <td>
-                        <a class="btn btn-info" href="/enterprise/{{$value->id}}/edit">Edit</a>
+                        <a class="btn btn-info" href="/resident/{{$value->id}}/edit">Edit</a>
                         <button class="btn btn-danger" onclick="Delete({{$value->id}})">Delete</button>
                     </td>
                 </tr>
@@ -83,7 +89,7 @@ if(!empty($user)){
 
 <script type="text/javascript">
     function Delete(data){
-        swal({   title: "คุณต้องการจะลบโครงการนี้!",
+        swal({   title: "คุณต้องการจะลบผู้พักอาศัยนี้!",
         text: "คุณแน่ใจที่จะลบ?",
         type: "warning",
         showCancelButton: true,
@@ -96,10 +102,10 @@ if(!empty($user)){
             if (isConfirm)
             {
             //swal("Account Removed!", "Your account is removed permanently!", "success");
-            document.location = "enterprise/delete/"+data;
+            document.location = "delete/"+data;
             }
             else {
-                swal("เย้", "โครงการนี้ไม่ถูกลบ!", "error");
+                swal("เย้", "ผู้พักอาศัยนี้ไม่ถูกลบ!", "error");
                 } });
     }
 </script>

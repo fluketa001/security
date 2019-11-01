@@ -96,7 +96,11 @@
                             <label for="status" class="col-md-4 col-form-label text-md-right">{{ __('สถานะ') }}</label>
 
                             <div class="col-md-6">
-                                <input id="status" type="text" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}" required autocomplete="status" placeholder="เจ้าของ/ผู้พักอาศัย/ผู้เช่า">
+                                <select class="form-control @error('status') is-invalid @enderror" value="{{ old('status') }}" name="status" required>
+                                    <option value="เจ้าของ">เจ้าของ</option>
+                                    <option value="ผู้พักอาศัย">ผู้พักอาศัย</option>
+                                    <option value="ผู้เช่า">ผู้เช่า</option>
+                                </select>
 
                                 @error('status')
                                     <span class="invalid-feedback" role="alert">
@@ -135,9 +139,38 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="province" class="col-md-4 col-form-label text-md-right">{{ __('จังหวัด') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="province" type="text" class="form-control @error('province') is-invalid @enderror" name="province" value="{{ old('province') }}" required autocomplete="province" placeholder="ขอนแก่น">
+
+                                @error('province')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="color" class="col-md-4 col-form-label text-md-right">{{ __('สีรถ') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="color" type="text" class="form-control @error('color') is-invalid @enderror" name="color" value="{{ old('color') }}" required autocomplete="color" placeholder="ดำเทา">
+
+                                @error('color')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="enterprise_name" class="col-md-4 col-form-label text-md-right">{{ __('ชื่อโครงการ') }}</label>
 
                             <div class="col-md-6">
+                                <input type="hidden" name="enterprise_id" value="{{ $enterprises->id }}" required>
                                 <input id="enterprise_name" type="text" class="form-control @error('enterprise_name') is-invalid @enderror" name="enterprise_name" value="{{ $enterprises->name }}" required autocomplete="enterprise_name" readonly>
 
                                 @error('enterprise_name')
