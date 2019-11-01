@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\InOut;
+use App\EnterPrise;
+use DB;
 
 class InOutController extends Controller
 {
@@ -13,6 +16,9 @@ class InOutController extends Controller
      */
     public function index()
     {
+        $enterprises = EnterPrise::all()->sortByDesc('created_at');
+        return View('inout.select_enterprise')
+        ->with('enterprises', $enterprises);
         //
     }
 
@@ -45,6 +51,10 @@ class InOutController extends Controller
      */
     public function show($id)
     {
+        $inouts = InOut::all()->where('enterprise_id', $id)->sortByDesc('created_at');
+        //$inouts = DB::table('in_out')->where('enterprise_id', $id);
+        return view('inout.index')
+        ->with('inouts',$inouts);
         //
     }
 

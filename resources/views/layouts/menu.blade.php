@@ -46,7 +46,7 @@
                         echo "<div class='menu_section'>
                         <h3>Report</h3>
                         <ul class='nav side-menu'>
-                            <li><a><i class='fa fa-desktop'></i> ประวัติการจอด </a></li>
+                            <li><a href='/inout'><i class='fa fa-desktop'></i> ประวัติการจอด </a></li>
                         </ul>
                         </div>";
                             }
