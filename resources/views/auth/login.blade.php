@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 <?php
+date_default_timezone_set("Asia/Bangkok");
     $_month_name = array("01"=>"มกราคม",  "02"=>"กุมภาพันธ์",  "03"=>"มีนาคม",
         "04"=>"เมษายน",  "05"=>"พฤษภาคม",  "06"=>"มิถุนายน",
         "07"=>"กรกฎาคม",  "08"=>"สิงหาคม",  "09"=>"กันยายน",
@@ -43,6 +44,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 @section('content')
 <div class="container">
+    @if (session('Error'))
+        <div class="alert alert-danger">
+            {{ session('Error') }}
+        </div>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div align="center"><img src="{{asset('img/Choose.png')}}" width="80%"></div>

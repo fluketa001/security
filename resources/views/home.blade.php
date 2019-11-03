@@ -55,7 +55,7 @@ if(!empty($user)){
             <h3>เว็บไซต์สำหรับผู้ดูแลระบบเท่านั้่น <small>(Website for Admin only){{--Graph title sub-title--}}</small></h3>
         </div>
         <div class="col-md-6">
-            <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+            <div class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">{{--id="reportrange"--}}
                 <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                 @include('layouts.time')
             </div>

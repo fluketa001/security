@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -53,6 +55,22 @@ class LoginController extends Controller
             return redirect()->route('user.index');
         }else{
             return redirect('/home');
+        }
+    }
+
+    public function login(Request $request)
+    {
+        $user = User::where([
+            'username' => $request->username,
+            'password' => $request->password
+        ])->first();
+
+        if($user)
+        {
+            Auth::login($user);
+            return redirect()->route('user.index');
+        }else{
+            return redirect()->route('login')->with('Error','Username หรือ Password ไม่ถูกต้อง!');
         }
     }
 }
